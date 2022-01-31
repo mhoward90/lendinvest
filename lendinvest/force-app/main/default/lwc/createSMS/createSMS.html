@@ -1,19 +1,30 @@
 <template>
-    <lightning-card title="Send SMS">
-      <template if:true={error}>
-        <div class="slds-notify slds-notify_alert slds-alert_error" role="alert">
-          <span class="slds-assistive-text">error</span>
-          <h2>{error}</h2>
-        </div>
-      </template>
-      <template if:true={accountPhoneNumber}>
-        <span>Account Phone Number:</span>
-        <lightning-formatted-phone value={accountPhoneNumber}></lightning-formatted-phone>
-        <div class="slds-m-top_medium">
-          <p data-id="remaining_characters">Number of characters remaining: <span class="slds-text-title_bold">{remainingCharacters}</span></p>
-          <lightning-textarea onchange={handleTextChange} label="Message Input" max-length="160" required="true" message-when-value-missing="Please enter a message body"></lightning-textarea>
-          <lightning-button label="Send" onclick={sendSms}></lightning-button>
-        </div>
-      </template>
-    </lightning-card>
+  <lightning-card title="Send SMS">
+    <template if:true={error}>
+      <div class="slds-notify slds-notify_alert slds-alert_error" role="alert">
+        <span class="slds-assistive-text">error</span>
+        <h2>{error}</h2>
+      </div>
+    </template>
+    <template if:true={accountPhoneNumber}>
+      <span>Account Phone Number:</span>
+      <lightning-formatted-phone
+        value={accountPhoneNumber}
+      ></lightning-formatted-phone>
+      <div class="slds-m-top_medium">
+        <p data-id="remaining_characters">
+          Number of characters remaining:
+          <span class="slds-text-title_bold">{remainingCharacters}</span>
+        </p>
+        <lightning-textarea
+          onchange={handleTextChange}
+          label="Message Input"
+          max-length="160"
+          required="true"
+          message-when-value-missing="Please enter a message body"
+        ></lightning-textarea>
+        <lightning-button label="Send" onclick={sendSms}></lightning-button>
+      </div>
+    </template>
+  </lightning-card>
 </template>

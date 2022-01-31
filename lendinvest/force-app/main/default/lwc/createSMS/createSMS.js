@@ -1,8 +1,8 @@
-import { LightningElement, wire, api } from 'lwc';
-import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
-import PHONE_FIELD from '@salesforce/schema/Account.Phone';
-import sendSmsMessage from '@salesforce/apex/CommunicationsController.sendSmsMessage';
+import { LightningElement, wire, api } from "lwc";
+import { ShowToastEvent } from "lightning/platformShowToastEvent";
+import { getRecord, getFieldValue } from "lightning/uiRecordApi";
+import PHONE_FIELD from "@salesforce/schema/Account.Phone";
+import sendSmsMessage from "@salesforce/apex/CommunicationsController.sendSmsMessage";
 
 export default class CreateSMS extends LightningElement {
   @api recordId;
@@ -11,8 +11,8 @@ export default class CreateSMS extends LightningElement {
   remainingCharacters = 160;
   accountPhoneNumber;
 
-  @wire(getRecord, {recordId: '$recordId', fields: [PHONE_FIELD]})
-  wireRecord({error, data}) {
+  @wire(getRecord, { recordId: "$recordId", fields: [PHONE_FIELD] })
+  wireRecord({ error, data }) {
     if (data) {
       this.accountPhoneNumber = getFieldValue(data, PHONE_FIELD);
     } else if (error) {
@@ -21,17 +21,21 @@ export default class CreateSMS extends LightningElement {
   }
 
   async sendSms(event) {
-    const textArea = this.template.querySelector('lightning-textarea');
+    const textArea = this.template.querySelector("lightning-textarea");
     if (!textArea.checkValidity()) {
       textArea.reportValidity();
       return;
     }
 
-    const smsBody = this.template.querySelector('lightning-textarea').value;
+    const smsBody = this.template.querySelector("lightning-textarea").value;
 
     try {
-      await sendSmsMessage({messageBody: smsBody, to: '12345667789'});
-      showNotification('SMS Successfully Sent', `SMS message has been sent to ${to}`, 'success');
+      await sendSmsMessage({ messageBody: smsBody, to: "12345667789" });
+      showNotification(
+        "SMS Successfully Sent",
+        `SMS message has been sent to ${to}`,
+        "success"
+      );
     } catch (e) {
       this.error = e.body.message;
     }
@@ -43,9 +47,9 @@ export default class CreateSMS extends LightningElement {
 
   showNotification(title, message, variant) {
     const evt = new ShowToastEvent({
-        title: title,
-        message: message,
-        variant: variant,
+      title: title,
+      message: message,
+      variant: variant
     });
     this.dispatchEvent(evt);
   }
