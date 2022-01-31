@@ -1,0 +1,11 @@
+{
+  "apiName" : "Account",
+  "fields" : {
+
+    "Phone" : {
+      "displayValue" : null,
+      "value" : "+4487917283123"
+    }
+  },
+  "id" : "0011J00001A3VFoQAN"
+}
