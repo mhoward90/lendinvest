@@ -1,6 +1,10 @@
 <template>
     <lightning-card title="Send SMS">
-      <lightning-textarea label="Message Input" max-length="160"></lightning-textarea>
+      <template if:true={error}>
+        <p>error</p>
+      </template>
+      <p>Number of characters remaining: {remainingCharacters}</p>
+      <lightning-textarea onchange={handleTextChange} label="Message Input" max-length="160"></lightning-textarea>
       <lightning-button label="Send" onclick={sendSms}></lightning-button>
     </lightning-card>
 </template>

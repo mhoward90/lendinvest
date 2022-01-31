@@ -1,6 +1,5 @@
-trigger OpportunityTrigger on Opportunity (before insert) {
+trigger OpportunityTrigger on Opportunity (after insert) {
   private static final String GOLD_STATUS = 'Gold';
-
   private static SMSNumber__c smsNumber = SMSNumber__c.getValues('Twilio');
 
  for(Opportunity op : Trigger.new) {
@@ -10,7 +9,7 @@ trigger OpportunityTrigger on Opportunity (before insert) {
         String.format('Hello {0}, Congratulations on closing your opportunity', new List<String>{op.Account.Name}),
         op.Account.Phone,
         smsNumber.Twilio__c
-        );
+      );
     }
   } catch (Exception ex) {
     // use a logging framework to log the exception here
