@@ -19,4 +19,22 @@ public class TwilioServiceTest {
       System.assertEquals(mockMessage.error_message, sms.error_message);
       System.assertEquals(mockMessage.status, sms.status);
     }
+
+    @isTest
+    private static void itShouldSendSMSAndReturnAnException() {
+      String mockResponse = '{"error_code":400,"error_message":"not sent"}';
+      Test.setMock(HttpCalloutMock.class, new HttpResponseMock(mockResponse, 400));
+
+      Boolean exceptionThrown = false;
+
+      System.Test.startTest();
+        try {
+          TwilioService.sms('hello lendinvest here', '+12323123', '+123213213');
+        } catch (Exception e) {
+          exceptionThrown = true;
+        }
+      System.Test.stopTest();
+
+      System.assertEquals(true, exceptionThrown);
+    }
 }

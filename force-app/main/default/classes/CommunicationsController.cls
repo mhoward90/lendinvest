@@ -12,7 +12,9 @@ public with sharing class CommunicationsController {
       }
 
       if (String.isNotBlank(sms.error_message)) {
-        throw new AuraHandledException(sms.error_message);
+        AuraHandledException ahe = new AuraHandledException(sms.error_message);
+        ahe.setMessage(sms.error_message);
+        throw ahe;
       }
     }
 }
