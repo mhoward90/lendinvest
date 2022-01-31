@@ -54,7 +54,7 @@ describe("c-create-sms", () => {
       '[data-id="remaining_characters"]'
     );
     expect(remainingText.textContent).toBe(
-      "Number of characters remaining: 91"
+      "Number of characters remaining:91"
     );
   });
 });
